@@ -1,4 +1,4 @@
-<center style='font-size: 20px'> Guía de Capacitación: Mapa Web interactivo con Leaflet-GeoServer (WEB-GIS)</center>
+# Guía de Capacitación: Mapa Web interactivo con Leaflet-GeoServer (WEB-GIS)
 
 ## Introducción
     En esta capacitación, aprenderemos a construir un mapa web interactivo utilizando dos herramientas poderosas: Leaflet y GeoServer. El objetivo es crear un sistema de información geográfica (SIG) basado en la web que permita visualizar y analizar datos geoespaciales de manera efectiva.
