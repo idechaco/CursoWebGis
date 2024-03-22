@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de WEB-GIS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javasript.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+   
+  <style>
+    ol img {
+        margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+    <center ><h2>Capacitación: Mapa Web interactivo con Leaflet-GeoServer (WEB-GIS)</h2> </center>
+
+<div>
+    <h2>Introducción</h2>
+    <h3>GIS <a href="https://www.esri.es/es-es/descubre-los-gis/qu-es-sig/que-es-sig">Mas info</a></h3> 
+    Es un Sistema de Información Geográfica, es una herramienta tecnológica para la gestión, análisis y visualización de datos espaciales y geográficos. Permite integrar y relacionar diversos tipos de información y realizar análisis espaciales para facilitar la toma de decisiones. 
+    <h3>Leaflet   <a href="https://leafletjs.com/">(Descarga)</a></h3> Es una biblioteca de JavaScript de código abierto para crear mapas interactivos en línea que son ligeros y fáciles de usar. 
+    <h3>Geoserver  <a href="https://geoserver.org/download/">(Descarga)</a></h3> Es un servidor de software libre que permite a los usuarios compartir y editar datos geoespaciales. Diseñado para interoperabilidad, publica datos desde cualquier fuente de datos espaciales utilizando estándares abiertos.
+    <h2>Que aprenderemos</h2>
+    En esta capacitación, aprenderemos a construir un mapa web interactivo utilizando dos herramientas poderosas: Leaflet y GeoServer. El objetivo es crear un sistema de información geográfica (SIG) basado en la web que permita visualizar y analizar datos geoespaciales de manera efectiva.
+<h2>Requisitos previos</h2>
+<h3>Antes de comenzar, asegúrate de tener lo siguiente:</h3>
+<ol>
+    <li>Conocimientos básicos de HTML, CSS y JavaScript.</li>
+    <li>GeoServer instalado y configurado en tu servidor (puede ser local o remoto).</li>
+    <li> Datos geoespaciales (por ejemplo, archivos shapefile, GeoJSON, etc.) que deseas mostrar en el mapa.</li>
+</ol>
+
+</div>
+
+<h3>Pasos para crear el mapa web interactivo</h3>
+<h4>Configuración de GeoServer</h4>
+<ol>
+    <li>Accede a la interfaz web de GeoServer (generalmente en http://localhost:8080/geoserver).</li>
+    <li>Crea un nuevo almacén de datos (data store) para tus datos geoespaciales.</li>
+    <li>Pública las capas que deseas mostrar en el mapa.</li>
+</ol>
+
+<h4>Creación del mapa con Leaflet</h4>
+<ol>
+    <li>Crea una estructura básica de HTML con un contenedor para el mapa.</li>
+    <li>Agrega la librería Leaflet a tu proyecto (puedes usar un CDN o descargarla localmente).</li>
+    <li>Inicializa el mapa en tu archivo JavaScript</li>
+</ol>
+
+<pre>
+    <code class="language-html">
+    Archivo: index.html
+
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang="es"&gt;
+        &lt;head&gt;
+            &lt;meta charset="UTF-8"&gt;
+            &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+            &lt;title&gt;Visor WEB-GIS&lt;/title&gt;
+            &lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" /&gt;
+            &lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""&lt;&lt;/script&gt;
+            &lt;style&gt;
+                 #map { height: 100vh  }
+            &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;div id="map"&gt;&lt;/div&gt;
+            &lt;script src="./visor.js"&gt;&lt;/script&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;
+  </code>
+</pre>
+
+<pre>
+    <code class="language-js" >
+    // Archivo: visor.js    
+
+    // Importa Leaflet
+    import L from 'leaflet';
+
+    // Crea un mapa y establece la vista inicial (Quitilipi, Chaco)
+    const map = L.map('map').setView([-26.8704226,-60.2138326], 14);
+    
+    // Agrega una capa base (por ejemplo, OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+  </code>
+</pre>
+
+<h3>Preview</h3>
+<div id="map" style="width: 800px; height: 600px; border-radius: 5px;border: 2px groove black;"></div>
+
+<hr/>
+
+<h2>Geoserver Publicación de Capas</h2>
+
+<h3>Preparación:</h3>
+<ol>
+    <li>Asegúrate de tener GeoServer instalado y funcionando correctamente en tu servidor o máquina local.</li>
+    <li>Localiza el archivo Shapefile que deseas cargar. Puede estar en tu sistema local o en una ubicación remota.</li>
+</ol>
+
+
+<h3>Publicar nuestras capas en GeoServer:</h3>
+<ol>
+    <li>Abre tu navegador web y accede a la interfaz web de GeoServer. Por lo general, está disponible en http://localhost:8080/geoserver.</li>
+    <li>Inicia sesión con tus credenciales de administrador. User: Admin, pass: geoserver</li>
+    <img src="./img/geo1.png" style="width: 800px; height: 300px; border-radius: 5px;border: 2px groove black;">
+    <li>Crear un Espacio de Trabajo</li>
+    <img src="./img/geo2.png" style="width: 800px; height: 300px; border-radius: 5px;border: 2px groove black;">
+    <li>Crear un Almacén de Datos</li>
+    <li>Elige el tipo de almacén de datos (por ejemplo, “Shapefile”)</li>
+    <img src="./img/geo3.png" style="width: 800px; height: 300px; border-radius: 5px;border: 2px groove black;">
+    <li>Configura la conexión al archivo Shapefile especificando la ruta local o la URL remota</li>
+    <img src="./img/geo4.png" style="width: 800px; height: 300px; border-radius: 5px;border: 2px groove black;">
+    <li>Publicar una capa </li>
+    <li>Define el nombre de la capa y asígnala al espacio de trabajo que creaste previamente</li>
+    <img src="./img/geo5.png" style="width: 500px; height: 300px; border-radius: 5px;border: 2px groove black;">
+    <li>Publicar la Capa</li>
+    <img src="./img/geo6.png" style="width: 500px; height: 300px; border-radius: 5px;border: 2px groove black;">
+    <li>Cargamos información de la capa</li>
+    <img src="./img/geo71.png" style="width: 500px; height: 400px; border-radius: 5px;border: 2px groove black;">
+    <img src="./img/geo72.png" style="width: 500px; height: 400px; border-radius: 5px;border: 2px groove black;">
+    <li>Ve a la pestaña “Capas” y verifica que tu capa esté disponible.</li>
+    <img src="./img/geo8.png" style="width: 800px; height: 400px; border-radius: 5px;border: 2px groove black;">
+    <li>Probamos la capa recientemente publicada</li>
+    <img src="./img/geo9.png" style="width: 800px; height: 400px; border-radius: 5px;border: 2px groove black;">
+    <img src="./img/geo10.png" style="width: 800px; height: 400px; border-radius: 5px;border: 2px groove black;">
+</ol>
+
+<h2>Ver la capa publicada en el Visor WEB-GIS</h2>
+<h3>Servicio WMS de Geoserver (devuelve una imagen .png)</h3>
+<div>Modicamos nuestro archivo: visor.js</div>
+<pre>
+    <code class="language-js" >
+    var wmsLayer = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
+        layers: 'Quit_parcelario',
+        format: 'image/png',
+        transparent: true,
+        opacity: 0.5,
+    });
+    map.addLayer(wmsLayer);
+  </code>
+</pre>
+<h3>Preview</h3>
+<img src="./img/pre1.png" style="width: 800px; height: 600px; border-radius: 5px;border: 2px groove black;" />
+
+<h3>Servicio WFS de Geoserver (Devuelve un json) </h3>
+<div>Modicamos nuestro archivo: visor.js</div>
+<pre>
+    <code class="language-js" >
+        var wfsUrl = 'http://localhost:8080/geoserver/wfs';
+        var parameters = {
+          service: 'WFS', version: '1.0.0', request: 'GetFeature',
+          typeName: 'Municipios:Quit_parcelario',
+          srsNAME: 'urn:ogc:def:crs:OGC:1.3:CRS84',
+          outputFormat: 'application/json'
+        };
+        
+        // Realiza la petición fetch
+        fetch(wfsUrl + L.Util.getParamString(parameters))
+          .then(function(response) { return response.json();})
+          .then(function(json) {
+            L.geoJson(json, {
+                style: {color: 'blue',
+               
+            }
+            }).addTo(map);
+          })
+          .catch(function(error) { console.error('Error al realizar la petición WFS:', error); });
+  </code>
+</pre>
+<h3>Preview</h3>
+<img src="./img/pre2.png" style="width: 800px; height: 600px; border-radius: 5px;border: 2px groove black;" />
+
+<script>
+
+hljs.initHighlightingOnLoad();
+const map = L.map('map').setView([-26.8704226,-60.2138326], 14);
+
+// Agrega una capa base (por ejemplo, OpenStreetMap)
+var base = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+})
+base.addTo(map);
+
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
